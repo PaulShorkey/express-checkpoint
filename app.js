@@ -48,9 +48,15 @@ app.get('/movies/:id', function(req, res) {
 })
 
 app.post('/movies', function(req, res) {
-    console.log(req.body);
-    // knex
-    // .insert()
+       
+     knex('movies').insert(req.body)
+    .then((result)=>{
+      return res.status(200).json({ success: true, message: 'ok' });
+    })
+    .catch((result) => {
+      return res.status(400).json({success: false, message: 'not ok'});
+    });
+      
 })
 
 app.listen(PORT, () => {
